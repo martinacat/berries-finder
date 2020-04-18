@@ -21,6 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.when;
 
 @ExtendWith({MockitoExtension.class, SpringExtension.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -53,7 +54,7 @@ class PageScrapingServiceImplTest {
     @Test
     @DisplayName("given empty page, when the service is called, then no products are returned")
     void givenEmptyPage_whenServiceIsCalled_thenNoProductsAreReturned() {
-        //when(berriesClient.getHtmlPage()).thenReturn("");
+//        when(berriesClient.getHtmlPage()).thenReturn("");
 
         List<Product> actual = testedInstance.getProducts();
 
