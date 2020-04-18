@@ -1,4 +1,4 @@
-package com.martinacat.berriesfinder;
+package com.martinacat.berriesfinder.integration;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
