@@ -21,7 +21,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.Mockito.when;
 
 @ExtendWith({MockitoExtension.class, SpringExtension.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -32,7 +31,7 @@ class PageScrapingServiceImplTest {
     private PageScrapingServiceImpl testedInstance;
 
     @Mock
-    private BerriesClient berriesClient;
+    private ReactiveBerryClient reactiveBerryClient;
 
     private final String testPageFilePath = "src/test/resources/berries-test-page.html";
     private String berriesTestPageHtml;
