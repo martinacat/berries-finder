@@ -17,19 +17,21 @@ public class ReactiveBerryClient {
 
     private final WebClient client;
     private static final Function<String, Document> toHtmlDocument = Jsoup::parse;
-    private static final String BERRIES_PAGE_PATH = "/berries-cherries-currants6039.html";
+    private final String berriesPagePath;
 
 
-    ReactiveBerryClient(@Value("${berries.page.base-url}") final String url) {
+    ReactiveBerryClient(@Value("${berries.page.base-url}") final String url,
+                        @Value("${berries.page.resource-path}") final String resourcePath) {
         this.client = WebClient.builder()
                 .baseUrl(url)
                 .build();
+        this.berriesPagePath = resourcePath;
     }
 
     public Document getHtmlPage() {
         return client
                 .get()
-                .uri(BERRIES_PAGE_PATH)
+                .uri(berriesPagePath)
                 .retrieve()
                 .bodyToMono(String.class)
                 .map(toHtmlDocument).block();

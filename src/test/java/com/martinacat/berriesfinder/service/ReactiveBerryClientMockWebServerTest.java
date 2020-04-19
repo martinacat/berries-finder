@@ -1,10 +1,8 @@
 package com.martinacat.berriesfinder.service;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
+import com.martinacat.berriesfinder.TestUtil;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.jsoup.nodes.Document;
@@ -16,14 +14,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.function.Executable;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import static com.martinacat.berriesfinder.TestUtil.berriesTestPageHtml;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 
 @ExtendWith({SpringExtension.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -32,12 +29,9 @@ public class ReactiveBerryClientMockWebServerTest {
 
     private ReactiveBerryClient testedInstance;
 
-    private static final String testPageFilePath = "src/test/resources/berries-test-page.html";
-    private static String berriesTestPageHtml;
-
     @BeforeAll
     static void setUp() throws IOException {
-        readTestPage();
+        TestUtil.init();
         mockWebServer = new MockWebServer();
         mockWebServer.start();
     }
@@ -45,7 +39,7 @@ public class ReactiveBerryClientMockWebServerTest {
     @BeforeEach
     void init() {
         String baseUrl = String.format("http://localhost:%s", mockWebServer.getPort());
-        testedInstance = new ReactiveBerryClient(baseUrl);
+        testedInstance = new ReactiveBerryClient(baseUrl, "");
     }
 
     @AfterAll
@@ -73,7 +67,7 @@ public class ReactiveBerryClientMockWebServerTest {
         mockWebServer.enqueue(new MockResponse()
                 .setResponseCode(HttpStatus.OK.value())
                 .setBody("<head><"));
-        // todo
+        // todo check for exception and implement throw
     }
 
     @Test
@@ -94,13 +88,5 @@ public class ReactiveBerryClientMockWebServerTest {
 
         assertThrows(WebClientResponseException.NotFound.class, testedInstance::getHtmlPage);
         assertEquals(1, mockWebServer.getRequestCount());
-    }
-
-    private static void readTestPage() {
-        try {
-            berriesTestPageHtml = new String(Files.readAllBytes(Paths.get(testPageFilePath)));
-        } catch (IOException e) {
-            fail("Unable to read content of test html file");
-        }
     }
 }
