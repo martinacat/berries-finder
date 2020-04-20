@@ -6,7 +6,6 @@ import com.martinacat.berriesfinder.TestUtil;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
-import static com.martinacat.berriesfinder.TestUtil.berriesTestPageHtml;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -48,26 +46,15 @@ public class ReactiveBerryClientMockWebServerTest {
     }
 
     @Test
-    @DisplayName("When server response is 2xx, and body is valid html, html document is read correctly")
+    @DisplayName("When server response is 2xx, html document is read correctly")
     void whenResponseIs2xx_andHtmlValid_thenDocumentContainsProducts() {
         mockWebServer.enqueue(new MockResponse()
                 .setResponseCode(HttpStatus.OK.value())
-                .setBody(berriesTestPageHtml));
+                .setBody("berriesTestPageHtml"));
 
         final Document htmlPage = testedInstance.getHtmlPage();
-        Elements products = htmlPage.getElementsByClass("product");
 
-        assertEquals(16, products.size());
-        assertEquals(1, mockWebServer.getRequestCount());
-    }
-
-    @Test
-    @DisplayName("When server response is 2xx, and body is invalid html, exception is thrown")
-    void whenResponseIs2xx_andBodyIsInvalid_thenExceptionIsThrown() {
-        mockWebServer.enqueue(new MockResponse()
-                .setResponseCode(HttpStatus.OK.value())
-                .setBody("<head><"));
-        // todo check for exception and implement throw
+        assertEquals("berriesTestPageHtml", htmlPage.text());
     }
 
     @Test
@@ -77,7 +64,6 @@ public class ReactiveBerryClientMockWebServerTest {
                 .setResponseCode(HttpStatus.INTERNAL_SERVER_ERROR.value()));
 
         assertThrows(WebClientResponseException.InternalServerError.class, testedInstance::getHtmlPage);
-        assertEquals(1, mockWebServer.getRequestCount());
     }
 
     @Test
@@ -87,6 +73,5 @@ public class ReactiveBerryClientMockWebServerTest {
                 .setResponseCode(HttpStatus.NOT_FOUND.value()));
 
         assertThrows(WebClientResponseException.NotFound.class, testedInstance::getHtmlPage);
-        assertEquals(1, mockWebServer.getRequestCount());
     }
 }
