@@ -23,6 +23,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith({MockitoExtension.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest
+@DisplayName("Page Scraping Service tests")
 class PageScrapingServiceImplTest {
 
     private final ReactiveBerryClient reactiveBerryClient = mock(ReactiveBerryClient.class);

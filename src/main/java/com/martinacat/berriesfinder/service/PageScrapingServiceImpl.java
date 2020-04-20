@@ -42,8 +42,6 @@ public class PageScrapingServiceImpl implements PageScrapingService {
                 .stream()
                 .map(this::toProduct)
                 .collect(Collectors.toList());
-
-        // todo async calls to each product page to get kcal
     }
 
     private Elements getHtmlProductList() {

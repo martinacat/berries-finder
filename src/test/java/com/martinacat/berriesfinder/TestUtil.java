@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class TestUtil {
 
     private static final String testPageFilePath = "src/test/resources/berries-test-page.html";
+    public static final String strawberriesPath = "shop/gb/groceries/berries-cherries-currants/sainsburys-blueberries-200g.html";
+    public static final String blueberriesPath = "shop/gb/groceries/berries-cherries-currants/sainsburys-blueberries-200g.html";
+
     public static String berriesTestPageHtml;
     public static Document berriesHtmlDocument;
 

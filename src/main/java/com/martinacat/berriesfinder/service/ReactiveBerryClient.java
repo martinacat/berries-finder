@@ -1,5 +1,7 @@
 package com.martinacat.berriesfinder.service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Function;
 
 import org.jsoup.Jsoup;
@@ -35,5 +37,9 @@ public class ReactiveBerryClient {
                 .retrieve()
                 .bodyToMono(String.class)
                 .map(toHtmlDocument).block();
+    }
+
+    public List<Document> getProductPages() {
+        return Collections.emptyList(); // todo replace stub
     }
 }
