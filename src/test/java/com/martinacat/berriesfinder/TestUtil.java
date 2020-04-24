@@ -11,12 +11,15 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestUtil {
 
-    private static final String testPageFilePath = "src/test/resources/berries-test-page.html";
-    public static final String strawberriesPath = "shop/gb/groceries/berries-cherries-currants/sainsburys-blueberries-200g.html";
-    public static final String blueberriesPath = "shop/gb/groceries/berries-cherries-currants/sainsburys-blueberries-200g.html";
+    private static final String productsPageFilePath = "src/test/resources/berries-test-page.html";
+    private static final String blueberriesPageFilePath = "src/test/resources/blueberries.html";
+    public static final String strawberriesUrl = "/shop/gb/groceries/berries-cherries-currants/sainsburys-british-strawberries-400g.html";
+    public static final String blueberriesUrl = "/shop/gb/groceries/berries-cherries-currants/sainsburys-blueberries-200g.html";
 
-    public static String berriesTestPageHtml;
-    public static Document berriesHtmlDocument;
+    public static String productsPageHtml;
+    public static Document productsPageDocument;
+
+    public static String blueberriesPageHtml;
 
     public static void init() {
         readTestPage();
@@ -25,13 +28,14 @@ public class TestUtil {
 
     private static void readTestPage() {
         try {
-            berriesTestPageHtml = new String(Files.readAllBytes(Paths.get(testPageFilePath)));
+            productsPageHtml = new String(Files.readAllBytes(Paths.get(productsPageFilePath)));
+            blueberriesPageHtml = new String(Files.readAllBytes(Paths.get(blueberriesPageFilePath)));
         } catch (IOException e) {
             fail("Unable to read content of test html file");
         }
     }
 
     private static void parseHtmlToDocument() {
-        berriesHtmlDocument = Jsoup.parse(berriesTestPageHtml);
+        productsPageDocument = Jsoup.parse(productsPageHtml);
     }
 }

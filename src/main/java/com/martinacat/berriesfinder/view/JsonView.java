@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class DefaultJsonView {
+public class JsonView {
     private final List<Listing> results;
     private final TotalPrice total;
 }
