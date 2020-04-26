@@ -1,6 +1,11 @@
 # Berries-finder
+### Requirements
+This project was realised using 
+* java version "11.0.5" 2019-10-15 LTS
+* Gradle wrapper - no need for you to have Gradle installed
+
 ### Build
-You can build and run this project using the Gradle wrapper:
+You can build this project using the Gradle wrapper:
 ```bash
 ./gradlew clean build
 ```
@@ -10,6 +15,14 @@ To run the console application:
 ```bash
 ./gradlew bootRun
 ```
+
+### Test coverage
+To generate test coverage reports run:
+```bash
+./gradlew jacocoTR
+```
+after having built the project.
+This will generate test reports under `build/reports/jacoco`.
 
 ### Enable Gradle Logging
 Gradle logging has been set to `plain` to provide a less cluttered user experience.
