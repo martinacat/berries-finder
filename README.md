@@ -31,9 +31,18 @@ If you want to use the default Gradle logging you can go to `gradle.properties` 
 org.gradle.console=plain
 ```
 
+### Intellij
+This project was realised using IntelliJ IDEA 2020.1 (Community Edition). 
+If you want to run this in Intellij, remember to enable the Annotation Processor under:
+`Preferences | Build, Execution, Deployment | Compiler | Annotation Processors`
+
 > Note 1: Product pages are fetched asynchronously. 
 > This means that the order in which they are presented to you in the Json is not guaranteed
 >
-> Note 2: I understand this is an overkill implementation for the purpose it needs to serve, 
-> however this was done as a personal exercise more than anything else 
+> Note 2: This project was realised with personal exercise in mind, 
+> so at times it might seem like an over complicated implementation for the purpose it needs to serve. 
+> The same is true for the functional style I've used in places. 
+> I'm by no means an expert of that, so this projects served me as an exercise.
+>
+
 
