@@ -36,18 +36,20 @@ public class BerriesFinderConsoleApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws JsonProcessingException {
 
-		ConsoleWriter.write("Hi. Would you like to scrape the products on the Berries, Cherries, Currants page? y/n");
-		if (scanner.hasNext()) {
-			if (scanner.next().equals("y")) {
-				List<Listing> products = productService.getProducts();
-				TotalPrice total = totalCalculationService.calculateTotal(products);
+		while (true) {
+			ConsoleWriter.write("Hi. Would you like to scrape the products on the Berries, Cherries, Currants page? y/n");
+			if (scanner.hasNext()) {
+				if (scanner.next().equals("y")) {
+					List<Listing> products = productService.getProducts();
+					TotalPrice total = totalCalculationService.calculateTotal(products);
 
-				ConsoleWriter.write(JsonPrinter.generateJson(new JsonView(products, total)));
-				ConsoleWriter.write("All done!");
-			} else {
-				ConsoleWriter.write("Bye!");
+					ConsoleWriter.write(JsonPrinter.generateJson(new JsonView(products, total)));
+					ConsoleWriter.write("All done!");
+				} else {
+					ConsoleWriter.write("Bye!");
+				}
+				System.exit(0);
 			}
 		}
-		System.exit(0);
 	}
 }
