@@ -12,6 +12,6 @@ import lombok.ToString;
 public class Listing {
     private final String title;
     private final Double unitPrice;
-    private final String kcalPer100g;
+    private final Long kcalPer100g;
     private final String description;
 }

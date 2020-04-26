@@ -99,7 +99,7 @@ public class ProductServiceClientIntegrationTest {
                 Listing.builder()
                         .title("Sainsbury's Blueberries 200g")
                         .unitPrice(1.75)
-                        .kcalPer100g("45kcal")
+                        .kcalPer100g(45L)
                         .description("by Sainsbury's blueberries")
                         .build()));
     }

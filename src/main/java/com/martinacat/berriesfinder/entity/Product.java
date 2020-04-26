@@ -21,7 +21,7 @@ public class Product {
     private String title;
     private Double unitPriceGbp;
     private String description;
-    private String kcalPer100g;
+    private Long kcalPer100g;
 
     public Listing toListing() {
         return Listing.builder()

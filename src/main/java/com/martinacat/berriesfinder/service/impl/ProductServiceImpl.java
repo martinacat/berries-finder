@@ -134,14 +134,16 @@ public class ProductServiceImpl implements ProductService {
                 .replace("Description ", "");
     }
 
-    private String getKcalPer100gFromProductPage(Document document) {
+    private Long getKcalPer100gFromProductPage(Document document) {
         try {
-            return document.getElementsByClass("nutritionTable")
+            return Long.valueOf(document.getElementsByClass("nutritionTable")
                     .first()
                     .getElementsByClass("tableRow0").get(0)
-                    .getElementsContainingText("kcal").get(1).text();
-        } catch (NullPointerException e) {
-            return "not available";
+                    .getElementsContainingText("kcal").get(1).text()
+                    .replace("kcal", ""));
+        } catch (NullPointerException | NumberFormatException e) {
+            ConsoleWriter.warning(String.format("kcal value not found for %s", document.select("title").get(0).text()));
+            return null;
         }
     }
 }

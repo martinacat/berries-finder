@@ -35,13 +35,13 @@ class TotalCalculationServiceImplTest {
                         .title("Sainsbury's Strawberries 400g")
                         .unitPrice(1.75)
                         .description("by Sainsbury's strawberries")
-                        .kcalPer100g("33kcal")
+                        .kcalPer100g(33L)
                         .build(),
                 Listing.builder()
                         .title("Sainsbury's Blueberries 200g")
                         .unitPrice(3.75)
                         .description("by Sainsbury's blueberries")
-                        .kcalPer100g("45kcal")
+                        .kcalPer100g(45L)
                         .build()
         );
     }
