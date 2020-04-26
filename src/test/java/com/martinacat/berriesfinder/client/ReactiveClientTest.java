@@ -15,6 +15,8 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -61,19 +63,28 @@ public class ReactiveClientTest {
     }
 
     @Test
-    @DisplayName("When server response is 5xx, exception is thrown")
+    @DisplayName("When server response is 5xx, exception is handled")
     void whenResponseIs5xx() {
         mockWebServer.enqueue(new MockResponse()
                 .setResponseCode(HttpStatus.INTERNAL_SERVER_ERROR.value()));
 
-        testedInstance.getHtmlAsDocumentMono(resourceUri);
-        //assertEquals(Mono.empty(), actual);
+        Mono<Document> actual = testedInstance.getHtmlAsDocumentMono(resourceUri);
+
+        StepVerifier.create(actual)
+                .expectComplete()
+                .verify();
     }
 
     @Test
-    @DisplayName("When server response is 4xx, exception is thrown")
+    @DisplayName("When server response is 4xx, exception is handled")
     void whenResponseIs4xx() {
         mockWebServer.enqueue(new MockResponse()
                 .setResponseCode(HttpStatus.NOT_FOUND.value()));
+
+        Mono<Document> actual = testedInstance.getHtmlAsDocumentMono(resourceUri);
+
+        StepVerifier.create(actual)
+                .expectComplete()
+                .verify();
     }
 }
