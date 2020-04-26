@@ -41,11 +41,14 @@ public class BerriesFinderConsoleApplication implements CommandLineRunner {
 		ConsoleWriter.writeGreen(WELCOME_MESSAGE);
 		if (scanner.hasNext()) {
 			if (scanner.next().equals("y")) {
+				long startTime = System.nanoTime();
 				List<Listing> products = productService.getProducts();
 				TotalPrice total = totalCalculationService.calculateTotal(products);
+				long endTime = System.nanoTime();
 
+				long duration = (endTime - startTime)/1000000;
 				ConsoleWriter.write(JsonPrinter.generateJson(new JsonView(products, total)));
-				ConsoleWriter.writeGreen("All done! Bye!");
+				ConsoleWriter.writeGreen(String.format("All done in %s milliseconds. Bye!", duration));
 			} else {
 				ConsoleWriter.writeGreen("Bye!");
 			}
